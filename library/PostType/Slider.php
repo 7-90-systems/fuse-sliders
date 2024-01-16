@@ -62,7 +62,7 @@
                     'default' => false
                 ),
                 'infinite' => array (
-                    'label' => __ ('Infiniate Looping', 'fusesliders'),
+                    'label' => __ ('Infinite Looping', 'fusesliders'),
                     'default' => true
                 ),
                 'pauseOnFocus' => array (
