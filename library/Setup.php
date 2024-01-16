@@ -28,18 +28,21 @@
             $posttype_slider = new PostType\Slider ();
             $posttype_slide = new PostType\Slide ();
             
-            // Set up our blocks!
-            add_action ('enqueue_block_editor_assets', array ($this, 'addBlocks'));
+            // Add our shortcodes
+            $shortcode_slider = new Shortcode\Slider ();
+            
+            // Register our scripts and styles.
+            add_action ('wp_enqueue_scripts', array ($this, 'registerScripts'), 6);
         } // _init ()
         
         
         
         
         /**
-         *  Load our blocks
+         *  Register our scripts and styles.
          */
-        public function addBlocks () {
-            wp_enqueue_script ('fuse-sliders-slide-block', FUSE_PLUGIN_SLIDERS_BASE_URL.'/blocks/slider/block.js', array ('wp-blocks','wp-editor'), true);
-        } // addBlocks ()
+        public function registerScripts () {
+            wp_register_style ('fuse-sliders-public', FUSE_PLUGIN_SLIDERS_BASE_URL.'/assets/css/public.css');
+        } // registerScripts ()
         
     } // class Setup

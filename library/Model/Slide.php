@@ -9,14 +9,21 @@
     namespace Fuse\Plugin\Sliders\Model;
     
     use DateTime;
+    use Fuse\Plugin\Sliders\Traits\SliderTemplate;
     
     
     class Slide {
         
+        use SliderTemplate;
+        
+        
+        
+        
+        
         /**
          *  @var WP_Post The slide post object.
          */
-        protected $_slide;
+        public $slide;
         
         
         
@@ -31,7 +38,7 @@
                 $slide = get_post ($slide);
             } // if ()
             
-            $this->_slide = $slide;
+            $this->slide = $slide;
         } // __construct ()
         
         
@@ -52,19 +59,19 @@
             
             if (
                 (
-                    is_null ($start_time) && is_null ($endtime)
+                    is_null ($start_time) && is_null ($end_time)
                 )
                 ||
                 (
-                    is_null ($start_time) && $end_date >= $now
+                    is_null ($start_time) && $end_time >= $now
                 )
                 ||
                 (
-                    $start_date <= $now && is_null ($end_date)
+                    $start_time <= $now && is_null ($end_time)
                 )
                 ||
                 (
-                    $start_date <= $now && $end_date >= $now
+                    $start_time <= $now && $end_time >= $now
                 )
             ) {
                 $active = true;
@@ -104,8 +111,8 @@
         public function getTime ($type) {
             $time = NULL;
             
-            if (get_post_meta ($this->_slide->ID, 'fuse_slider_slide_set_'.$type, true) == 'set') {
-                $time = new DateTime (get_post_meta ($this->_slide->ID, 'fuse_sliders_slide_', true));
+            if (get_post_meta ($this->slide->ID, 'fuse_slider_slide_set_'.$type, true) == 'set') {
+                $time = new DateTime (get_post_meta ($this->slide->ID, 'fuse_sliders_slide_'.$type, true));
             } // if ()
             
             return $time;

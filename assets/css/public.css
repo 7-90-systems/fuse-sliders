@@ -1,0 +1,20 @@
+.fuse-sliders-slide-container {
+    width: 100%;
+    /* Don't set height here. That will be controlled by the theme */
+    position: relative;
+}
+.fuse-sliders-slide-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.fuse-sliders-side-content {
+    position: relative;
+    z-index: 0;
+}
