@@ -67,6 +67,12 @@
             ob_start ();
             
             if (is_a ($this, '\Fuse\Plugin\Sliders\Model\Slide')) {
+                $use_template = true;
+            
+                if (get_post_meta ($this->slide->ID, 'fuse_sliders_content_type', true) == 'content') {
+                    return apply_filters ('the_content', $this->slide->post_content);
+                } // if ()
+            
                 $template = 'slide';
             } // if ()
             else {

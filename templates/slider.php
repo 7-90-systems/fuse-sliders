@@ -23,8 +23,6 @@
 </div>
 <script type="text/javascript">
     jQuery (document).ready (function () {
-        console.log ("Getting ready for slider set up!");
-        
         jQuery ('#<?php esc_attr_e ($id); ?> > .fuse-sliders-slide-container').slick ({
             autoplay: <?php echo $object->getSetting ('autoplay'); ?>,
             autoplaySpeed: <?php echo $object->getSetting ('autoplaySpeed'); ?>,

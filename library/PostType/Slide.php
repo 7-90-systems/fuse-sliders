@@ -41,8 +41,44 @@
          *  Set up our metaboxes.
          */
         public function addMetaBoxes () {
+            add_meta_box ('fuse_sliders_content_type_meta', __ ('Slide Content', 'fusesliders'), array ($this, 'contentTypeMeta'), $this->getSlug (), 'side', 'high');
             add_meta_box ('fuse_sliders_slide_dates_meta', __ ('Start and End Times', 'fusesliders'), array ($this, 'dateMeta'), $this->getSlug (), 'normal', 'high');
         } // addMetaBoxes ()
+        
+        /**
+         *  Set up the content type meta box.
+         */
+        public function contentTypeMeta ($post) {
+            $types = array (
+                'basic' => array (
+                    'label' => __ ('Slider Template', 'fusesliders'),
+                    'help' => __ ('Use the standard slider template layout', 'fusesliders')
+                ),
+                'content' => array (
+                    'label' => __ ('Content Only', 'fusesliders'),
+                    'help' => __ ('Show the content only - no slide template', 'fusesliders')
+                )
+            );
+            $selected_type = get_post_meta ($post->ID, 'fuse_sliders_content_type', true);
+            
+            if (array_key_exists ($selected_type, $types) === false) {
+                $selected_type = 'basic';
+            } // if ()
+            ?>
+                <ul>
+                    <?php foreach ($types as $key => $type): ?>
+                    
+                        <li>
+                            <label>
+                                <input type="radio" name="fuse_sliders_content_type" value="<?php esc_attr_e ($key); ?>"<?php checked ($key, $selected_type); ?> />
+                                <span title="<?php esc_attr_e ($type ['help']); ?>"><?php echo $type ['label']; ?></span>
+                            </label>
+                        </li>
+                    
+                    <?php endforeach; ?>
+                </ul>
+            <?php
+        } // contentType ()
         
         /**
          *  Set up the dates meta box.
@@ -103,6 +139,11 @@
          *  Save the posts values.
          */
         public function savePost ($post_id, $post) {
+            // Content type
+            if (array_key_exists ('fuse_sliders_content_type', $_POST)) {
+                update_post_meta ($post_id, 'fuse_sliders_content_type', $_POST ['fuse_sliders_content_type']);
+            } // if ()
+            
             // Dates
             if (array_key_exists ('fuse-slider-slide-time-update', $_POST)) {
                 $times = array (
